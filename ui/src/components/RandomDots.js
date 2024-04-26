@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './../style.css'; // Import CSS file if using external styles
 import _ from 'lodash'; // Import lodash debounce function
 
 export const RandomDots = () => {
@@ -74,18 +73,22 @@ export const RandomDots = () => {
         const mouseX = event.clientX;
         const mouseY = event.clientY;
         const radius = 100; // Adjust the radius as needed
+        const screenX = (event.screenX/100)*30;
+        const screenY = (event.screenY/100)*30;
+        const screenWidth = window.innerWidth;
+        const leftBoundary = screenWidth * 0.3; // Left 30% of the screen
+        const rightBoundary = screenWidth * 0.7; // Right 30% of the screen
 
-        
         const newLines = [];
         setDots(prevDots => prevDots.map(dot => {
             const dotX = parseFloat(dot.left) + 5; // Assuming dot size is 10px
             const dotY = parseFloat(dot.top) + 5; // Assuming dot size is 10px
             const distance = Math.sqrt(Math.pow(mouseX - dotX, 2) + Math.pow(mouseY - dotY, 2));
 
-            if( mouseX >= 500 && mouseX <= 1000 ){
-                setLines([]);
-                return { ...dot, backgroundColor: 'white' };
-            }
+            // if (mouseX >= leftBoundary && mouseX <= rightBoundary) {
+            //     setLines([]);
+            //     return { ...dot, backgroundColor: 'white' };
+            // }
             if (distance <= radius) {
                 newLines.push(drawLine(mouseX, mouseY, dotX, dotY));
                 return { ...dot, backgroundColor: 'red' };

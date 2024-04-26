@@ -6,6 +6,7 @@ import { Task } from "./components/Task";
 import axios from "axios";
 import { API_URL } from "./utils";
 import {RandomDots} from "./components/RandomDots";
+import './style.css'; 
 
 const darkTheme = createTheme({
   palette: {
@@ -34,10 +35,12 @@ export default function App() {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <RandomDots></RandomDots>
-      <AddTaskForm fetchTasks={fetchTasks} />
-      {tasks.map((task) => (
-        <Task task={task} key={task.id} fetchTasks={fetchTasks} />
-      ))}
+      <div className="fixed-top-element">
+        <AddTaskForm fetchTasks={fetchTasks} />
+        {tasks.map((task) => (
+          <Task task={task} key={task.id} fetchTasks={fetchTasks} />
+        ))}
+      </div>
     </ThemeProvider>
   );
 }
